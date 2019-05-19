@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('quantity')->unsigned();
             $table->string('status')->default(Product::UNAVAILABLE_PRODUCT);
             $table->integer('seller_id')->index()->unsigned();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
