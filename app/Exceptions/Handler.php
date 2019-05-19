@@ -5,6 +5,9 @@ use Validator;
 use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use App\Traits\ApiResponser;
 class Handler extends ExceptionHandler
@@ -60,7 +63,32 @@ class Handler extends ExceptionHandler
           $modelName = strtolower(class_basename($exception->getModel()));
           return $this->errorResponse("Does not exists the {$modelName} for this ID",404);
         }
+
+        if($exception instanceof AuthenticationException){
+          return $this->unauthenticated($request,$exception);
+        }
+
+        if($exception instanceof AuthenticationException){
+          return $this->unauthenticated($request,$exception);
+        }
+
+        if($exception instanceof AuthorizationException){
+          return $this->errorResponse($exception->getMessages(),403);
+        }
+
+
+        if($exception instanceof NotFoundHttpException){
+          return $this->errorResponse("The URL Not Found Or Maybe changed",403);
+        }
+
+
+
         return parent::render($request, $exception);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return $this->errorResponse('unauthenticated',422);
     }
 
 
