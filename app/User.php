@@ -22,11 +22,28 @@ class User extends Authenticatable
     //verified email or  not
     //admin is 0 or 1
 
-    
+
     protected $hidden = [
         'password', 'remember_token','verification_token'
     ];
     //this is not pass in json response when we return a resource of user
+
+    public function setNameAttribute($name){
+      $this->attributes['name'] = strtolower($name);
+    }
+    //the mutators method modify the name of user before inserting DB.
+
+    public function getNameAttribute($name){
+      return ucwords($name);
+    }
+
+    public function setEmailAttribute($email){
+      $this->attributes['email'] = strtolower($email);
+    }
+
+    public function getEmailAttribute($email){
+      return ucwords($email);
+    }
 
 
     public function isVerified(){
