@@ -7,6 +7,8 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Database\QueryException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use App\Traits\ApiResponser;
@@ -76,14 +78,35 @@ class Handler extends ExceptionHandler
           return $this->errorResponse($exception->getMessages(),403);
         }
 
+        if($exception instanceof MethodNotAllowedHttpException){
+          return $this->errorResponse('The method is not correct',405);
+        }
+
 
         if($exception instanceof NotFoundHttpException){
           return $this->errorResponse("The URL Not Found Or Maybe changed",403);
         }
 
+        if($exception instanceof HttpException){
+          return $this->errorResponse($exception->getMessages(),$exception->getStatusCode());
+        }
+
+        if($exception instanceof QueryException){
+
+          $errorcode = $exception->errorInfo['1'];
+          if($errorcode == 1451){
+            return $this->errorResponse("You can not remove This resource because it relats any othe resource in DB",409);
+          }
+        }
+
+        return $this->errorResponse("Unexcepted Exception Try Again",500);
+        //if any of exception above Not Work I t will run this command
+
+        if(config('app.debug')){
+          return parent::render($request, $exception);
+        }
 
 
-        return parent::render($request, $exception);
     }
 
     protected function unauthenticated($request, AuthenticationException $exception)
