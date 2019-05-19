@@ -18,12 +18,6 @@ class UserController extends Controller
     }
 
 
-    public function create()
-    {
-        //
-    }
-
-
     public function store(Request $request)
     {
         //
@@ -55,10 +49,7 @@ class UserController extends Controller
 
     }
 
-    public function edit($id)
-    {
-        //
-    }
+
 
 
     public function update(Request $request, $id)
@@ -106,7 +97,9 @@ class UserController extends Controller
        //if user change isDirty() return true
        if(!$user->isDirty()){
 
-         return response()->json(['error'=>'You Need to specify to update ','code'=>422],422);
+         return response()->json([
+           'error' =>'You Need to specify to update ',
+           'code'  => 422] , 422);
 
        }
 

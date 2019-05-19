@@ -15,22 +15,14 @@ class User extends Authenticatable
 
     protected $table = "users";
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'name', 'email', 'password','verified','verification_token','admin'
     ];
     //verified email or  not
     //admin is 0 or 1
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    
     protected $hidden = [
         'password', 'remember_token','verification_token'
     ];

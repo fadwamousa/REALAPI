@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
 
         DB::statement('SET FOREIGN_KEY_CHECKS =  0');
 
-        //delete all data from tables 
+        //delete all data from tables
         User::truncate();
         Category::truncate();
         Product::truncate();
@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         DB::table('category_product')->truncate();
 
 
-        $userQTY = 150;
+        $userQTY = 1000;
         $cateQTY = 30;
         $prodQTY = 1000;
         $tranQTY = 1000;
