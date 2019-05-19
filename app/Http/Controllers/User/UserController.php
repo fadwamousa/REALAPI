@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\User;
-class UserController extends Controller
+class UserController extends ApiController
 {
 
     public function index()
@@ -13,7 +13,8 @@ class UserController extends Controller
         //
 
         $users = User::all();
-        return response()->json(['data'=>$users],200);
+        //return response()->json(['data'=>$users],200);
+        return apiResponse(1,'EveryThing is Okay',$users);
         //200  everything is ok
     }
 
@@ -37,15 +38,17 @@ class UserController extends Controller
 
         $user = User::create($input);
 
-        return response()->json(['data'=>$user],201);
+        //return response()->json(['data'=>$user],201);
         //201 the user has been created
+        return $this->showOne($user,201);
     }
 
 
     public function show($id)
     {
       $user = User::findOrFail($id);
-      return response()->json(['data'=>$user],200);
+      return $this->showOne($user);
+      //return response()->json(['data'=>$user],200);
 
     }
 
@@ -86,9 +89,8 @@ class UserController extends Controller
           if(!$user->isVerified()){
 
             //409 has been confilected
-            return response()->json([
-              'error' => 'Only verified users can modify the admin',
-              'code'  => 409 ], 409);
+            return $this->errorResponse('Only verified users can modify the admin',409);
+
           }
 
           $user->admin = $request->admin;
@@ -97,15 +99,14 @@ class UserController extends Controller
        //if user change isDirty() return true
        if(!$user->isDirty()){
 
-         return response()->json([
-           'error' =>'You Need to specify to update ',
-           'code'  => 422] , 422);
-
+         return $this->errorResponse('You Need to specify to update',422);
+         
        }
 
        $user->save();
 
-       return response()->json(['data'=>$user],200);
+       //return response()->json(['data'=>$user],200);
+       return $this->showOne($user);
 
     }
 
@@ -114,7 +115,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return response()->json(['data'=>$user],200);
+        return $this->showOne($user);
+        //return response()->json(['data'=>$user],200);
 
     }
 }
