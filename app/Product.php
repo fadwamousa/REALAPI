@@ -10,8 +10,10 @@ class Product extends Model
     //
     use SoftDeletes;
     protected $dates    = ['deleted_at'];
+
     const UNAVAILABLE_PRODUCT = 'unavailable';
     const AVAILABLE_PRODUCT = 'available';
+
     protected $fillable = [
       'name',
       'description',
