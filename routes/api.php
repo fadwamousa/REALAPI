@@ -27,6 +27,9 @@ Route::resource('sellers','Seller\SellerController',['only'=>['index','show']]);
 * transaction
 */
 Route::resource('transaction','Transaction\TransactionController',['only'=>['index','show']]); //show me the index page and show page only
+Route::resource('transaction.categories','Transaction\TransactionCategoryController',['only'=>['index']]); //show me the index page
+Route::resource('transaction.sellers','Transaction\TransactionSellerContoller',['only'=>['index']]); //show me the index page
+
 /*
 * user
 */
