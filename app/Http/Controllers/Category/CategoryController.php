@@ -4,82 +4,64 @@ namespace App\Http\Controllers\Category;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
-
+use App\Category;
 class CategoryController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $categories = Category::all();
+        return $this->showAll($categories);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
+        $rules = [
+          'name' => 'required|unique:categories',
+          'description' => 'required|min:10'
+        ];
+
+        $this->validate($request,$rules);
+        //dd($request->all());
+        $categories = Category::create($request->all());
+        return $this->showOne($categories);
+        //return $this->successResponse($categories,200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function show(Category $category)
     {
         //
+
+        return $this->showOne($category);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+
+    public function update(Request $request, Category $category)
     {
-        //
+      //check if any cahnge happen by using Fill Method
+      $category->fill($request->only(['name','description']));
+      //that mean if not any change in code (isDirty)
+      if(!$category->isDirty()){
+        return $this->errorResponse('you need to add some change in your data',422);
+      }
+      /*if($category->isClean()){
+        return $this->errorResponse('you need to add some change in your data',422);
+      }*/
+
+      $category->save();
+      return $this->showOne($category);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         //
+          $category->delete();
+          return $this->showOne($category);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use App\Http\Controllers\ApiController;
 
 class ProductController extends ApiController
@@ -14,7 +15,7 @@ class ProductController extends ApiController
      */
     public function index()
     {
-        //
+      
     }
 
     /**

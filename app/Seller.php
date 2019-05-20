@@ -2,12 +2,12 @@
 
 namespace App;
 use Illuminate\Database\Eloquent\Model;
-use App\Scopes\sellerScope;
+use App\Scope\sellerScope;
 
 class Seller extends User
 {
 
-    public function boot(){
+    protected static  function boot(){
       parent::boot();
       static::addGlobalScope(new sellerScope);
     }

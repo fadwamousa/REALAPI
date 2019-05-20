@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Scopes\buyerScope;
+use App\Scope\buyerScope;
 class Buyer extends User
 {
 
-    public function boot(){
+    protected static  function boot(){
       parent::boot();
       static::addGlobalScope(new buyerScope);
     }

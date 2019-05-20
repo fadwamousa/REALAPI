@@ -11,6 +11,8 @@ class buyerScope implements Scope{
   public function apply(Builder $builder , Model $model){
 
     $builder->has('transactions');
+
+    
   }
 
 
