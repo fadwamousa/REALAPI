@@ -27,12 +27,18 @@ Route::resource('categories.buyers','Category\CategoryBuyerController',['only'=>
 * Product
 */
 Route::resource('products','Product\ProductController',['only'=>['index','show']]); //show me the index page and show page only
+Route::resource('products.transactions','Product\ProductTransactionController',['only'=>['index','show']]); //show me the index page and show page only
+Route::resource('products.buyers','Product\ProductBuyerController',['only'=>['index','show']]); //show me the index page and show page only
+Route::resource('products.categories','Product\ProductCategoryController',['only'=>['index','update','destroy']]); //show me the index page and show page only
+
 /*
 * Seller
 */
 Route::resource('sellers','Seller\SellerController',['only'=>['index','show']]); //show me the index page and show page only
 Route::resource('sellers.transactions','Seller\SellerTransactionController',['only'=>['index','show']]); //show me the index page and show page only
 Route::resource('sellers.categories','Seller\SellerCategoryController',['only'=>['index']]); //show me the index page and show page only
+Route::resource('sellers.buyers','Seller\SellerBuyerController',['only'=>['index']]); //show me the index page and show page only
+Route::resource('sellers.products','Seller\SellerProductController'); //show me the index page and show page only
 
 /*
 * transaction

@@ -99,7 +99,7 @@ class Handler extends ExceptionHandler
           }
         }
 
-        //return $this->errorResponse("Unexcepted Exception Try Again",500);
+        return $this->errorResponse("Unexcepted Exception Try Again",500);
         //if any of exception above Not Work I t will run this command
 
         if(config('app.debug')){

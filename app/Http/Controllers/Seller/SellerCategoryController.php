@@ -17,9 +17,9 @@ class SellerCategoryController extends ApiController
                            ->with('categories')
                            ->get()
                            ->pluck('categories')
-                           ->collapse();
+                           ->collapse()->unique('id')->values();
 
-        return $this->showAll($category);                   
+        return $this->showAll($category);
 
     }
 
