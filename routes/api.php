@@ -31,6 +31,9 @@ Route::resource('products','Product\ProductController',['only'=>['index','show']
 * Seller
 */
 Route::resource('sellers','Seller\SellerController',['only'=>['index','show']]); //show me the index page and show page only
+Route::resource('sellers.transactions','Seller\SellerTransactionController',['only'=>['index','show']]); //show me the index page and show page only
+Route::resource('sellers.categories','Seller\SellerCategoryController',['only'=>['index']]); //show me the index page and show page only
+
 /*
 * transaction
 */
