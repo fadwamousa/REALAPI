@@ -65,6 +65,11 @@ class SellerProductController extends ApiController
             }
           }
 
+          if($request->hasFile('image')){
+             Storage::delete($product->image);
+             $product->image=$request->image->store('');
+           }
+
           if($product->isClean()){
               return $this->errorResponse('No Cahnge happen must be change some data in update section',422);
           }
