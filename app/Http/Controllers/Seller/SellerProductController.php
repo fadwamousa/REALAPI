@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Seller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use App\Seller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\ApiController;
 use App\Product;
 use App\User;
@@ -32,7 +33,8 @@ class SellerProductController extends ApiController
         $this->validate($request,$rules);
         $data = $request->all();
         $data['status'] = Product::UNAVAILABLE_PRODUCT;
-        $data['image']  = '1.jpg';
+        $data['image']  = $request->image->store(''),//here upload the image using store method that taking two paramaeters one (path) but we already write in file_system and the seconed parameters is the disk taht already write also in file file_system
+
         $data['seller_id'] = $seller->id;
 
         $product = Product::create($data);
@@ -74,7 +76,13 @@ class SellerProductController extends ApiController
     public function destroy(Seller $seller,Product $product)
     {
         $this->checkSeller($seller , $product);
+
         $product->delete();
+
+        Storage::delete($product->image);
+        //we can put this is command before but we want to remove image definitly
+        //will remove the image from the folder
+
         return $this->showOne($product);
     }
 
