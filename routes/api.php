@@ -30,6 +30,7 @@ Route::resource('products','Product\ProductController',['only'=>['index','show']
 Route::resource('products.transactions','Product\ProductTransactionController',['only'=>['index','show']]); //show me the index page and show page only
 Route::resource('products.buyers','Product\ProductBuyerController',['only'=>['index','show']]); //show me the index page and show page only
 Route::resource('products.categories','Product\ProductCategoryController',['only'=>['index','update','destroy']]); //show me the index page and show page only
+Route::resource('products.buyers.transactions','Product\ProductBuyerTransactionController',['only'=>['store']]); //show me the index page and show page only
 
 /*
 * Seller
