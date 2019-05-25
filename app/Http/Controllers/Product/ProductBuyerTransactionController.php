@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Product;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiController;
 
 class ProductBuyerTransactionController extends ApiController
@@ -44,7 +45,7 @@ class ProductBuyerTransactionController extends ApiController
           return $this->errorResponse('The quantity must be greater than the requset',409);
 
         }
-
+        
         return DB::transaction(function() use ($request,$product,$buyer){
           $product->quantity = $request->quantity;
           $product->save();

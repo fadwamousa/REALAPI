@@ -13,21 +13,19 @@ class ProductBuyerController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Product $product)
-    {
-        //
+     public function index(Product $product)
+     {
+         //$this->allowedAdminAction();
 
-        $buyers = $product->transactions()
-                          ->whereHas('transactions')
-                          ->with('buyer')
-                          ->get()
-                          ->pluck('buyer')
-                          ->unique('id')
-                          ->values();
+         $buyers = $product->transactions()
+             ->with('buyer')
+             ->get()
+             ->pluck('buyer')
+             ->unique('id')
+             ->values();
 
-
-        return $this->showAll($buyers);
-    }
+         return $this->showAll($buyers);
+     }
 
 
 }

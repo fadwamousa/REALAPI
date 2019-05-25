@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use Notifiable , SoftDeletes;
-    
+
     protected $dates    = ['deleted_at'];
     const VERIFIED_USER   = '1';
     Const UNVERIFIED_USER = '0';

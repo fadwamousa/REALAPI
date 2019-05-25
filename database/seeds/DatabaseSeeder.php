@@ -24,10 +24,17 @@ class DatabaseSeeder extends Seeder
         DB::table('category_product')->truncate();
 
 
+        User::flushEventListeners();
+        Category::flushEventListeners();
+        Product::flushEventListeners();
+        Transaction::flushEventListeners();
+
         $userQTY = 150;
         $cateQTY = 30;
         $prodQTY = 300;
         $tranQTY = 200;
+
+
 
         factory(App\User::class,$userQTY)->create();
 

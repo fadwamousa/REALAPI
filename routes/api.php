@@ -28,7 +28,7 @@ Route::resource('categories.buyers','Category\CategoryBuyerController',['only'=>
 */
 Route::resource('products','Product\ProductController',['only'=>['index','show']]); //show me the index page and show page only
 Route::resource('products.transactions','Product\ProductTransactionController',['only'=>['index','show']]); //show me the index page and show page only
-Route::resource('products.buyers','Product\ProductBuyerController',['only'=>['index','show']]); //show me the index page and show page only
+Route::resource('products.buyers','Product\ProductBuyerController',['only'=>['index']]); //show me the index page and show page only
 Route::resource('products.categories','Product\ProductCategoryController',['only'=>['index','update','destroy']]); //show me the index page and show page only
 Route::resource('products.buyers.transactions','Product\ProductBuyerTransactionController',['only'=>['store']]); //show me the index page and show page only
 
@@ -51,4 +51,6 @@ Route::resource('transaction.sellers','Transaction\TransactionSellerContoller',[
 /*
 * user
 */
-Route::resource('users','User\UserController',['except'=>['create','edit']]); //show me the index page and show page only
+Route::resource('users','User\UserController',['except'=>['create','edit']]);
+Route::get('users/verify/{token}','User\UserController@verify')->name('verify');
+Route::get('users/{user}/resend','User\UserController@resend')->name('resend'); 

@@ -33,7 +33,8 @@ class SellerProductController extends ApiController
         $this->validate($request,$rules);
         $data = $request->all();
         $data['status'] = Product::UNAVAILABLE_PRODUCT;
-        $data['image']  = $request->image->store(''),//here upload the image using store method that taking two paramaeters one (path) but we already write in file_system and the seconed parameters is the disk taht already write also in file file_system
+        //here upload the image using store method that taking two paramaeters one (path) but we already write in file_system and the seconed parameters is the disk taht already write also in file file_system
+        $data['image']  = $request->image->store('');
 
         $data['seller_id'] = $seller->id;
 
@@ -45,8 +46,6 @@ class SellerProductController extends ApiController
     public function update(Request $request , Seller $seller , Product $product)
     {
           $rules = [
-
-
             'quantity'    => 'integer|min:1',
             'status'      => 'in: '. Product::UNAVAILABLE_PRODUCT . ',' . Product::AVAILABLE_PRODUCT,
             'image'       => 'image'
