@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\User as UserResource;
 use App\User;
 class UserController extends ApiController
 {
@@ -15,7 +16,8 @@ class UserController extends ApiController
 
         $users = User::all();
         //return response()->json(['data'=>$users],200);
-        return apiResponse(1,'EveryThing is Okay',$users);
+        return  UserResource::collection($users);
+        //return apiResponse(1,'EveryThing is Okay',$users);
         //200  everything is ok
     }
 
