@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Traits;
+
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,6 +27,7 @@ trait ApiResponser{
     }
 
     $transformer = $collection->first()->transformer;
+    $collection  = $this->sortData($collection);
     $collection  = $this->transformData($collection , $transformer );
 
     return $this->successResponse(['data'=>$collection],$code);
@@ -51,12 +53,25 @@ trait ApiResponser{
 
       protected  function transformData($data , $transformer){
 
-
         $transformation = fractal($data, new $transformer);//package
 
         return $transformation->toArray(); //convert to array
 
+        }
 
+
+        protected function sortData(Collection $collection){
+
+          //this is function return collection depending sorting or not
+
+          if(request()->has('sort_by')){
+            $attribute = request()->sort_by;
+
+            $collection = $collection->sortBy($attribute);
+            //$collection = $collection->sortBy->{$attribute};
+          }
+
+          return $collection;
 
         }
 

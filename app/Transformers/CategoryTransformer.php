@@ -23,4 +23,20 @@ class CategoryTransformer extends TransformerAbstract
 
       ];
     }
+
+    public static function originalAttribute($index){
+
+      $attributes =  [
+
+        'identify' => 'id',
+        'title'     => 'name',
+        'details'    =>'description',
+        'creationDate'=>'created_at',
+        'Deleted_at'  => 'deleted_at'
+
+      ];
+
+      return isset($attributes[$index]) ? $attributes[$index] :null;
+
+    }
 }
