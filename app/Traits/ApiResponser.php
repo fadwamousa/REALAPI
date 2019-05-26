@@ -27,7 +27,8 @@ trait ApiResponser{
     }
 
     $transformer = $collection->first()->transformer;
-    $collection  = $this->sortData($collection);
+    $collection  = $this->filterData($collection,$transformer);
+    $collection  = $this->sortData($collection,$transformer);
     $collection  = $this->transformData($collection , $transformer );
 
     return $this->successResponse(['data'=>$collection],$code);
@@ -59,15 +60,29 @@ trait ApiResponser{
 
         }
 
+        protected function filterData(Collection $collection , $transform){
 
-        protected function sortData(Collection $collection){
+          foreach (request()->query() as $query => $value) {
+            $attribute = $transformer::originalAttribute($query);
+          }
+
+          if(isset($attribute , $value)){
+            $collection = $collection->where($attribute , $value);
+          }
+
+          return $collection;
+
+        }
+
+
+        protected function sortData(Collection $collection , $transformer){
 
           //this is function return collection depending sorting or not
 
           if(request()->has('sort_by')){
-            $attribute = request()->sort_by;
-
+            $attribute = $transformer::originalAttribute(request()->sort_by);
             $collection = $collection->sortBy($attribute);
+            //attribute may be any thing name or id
             //$collection = $collection->sortBy->{$attribute};
           }
 
