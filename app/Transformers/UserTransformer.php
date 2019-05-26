@@ -21,7 +21,7 @@ class UserTransformer extends TransformerAbstract
           'email'    => (string)$user->email,
           'isVerified'=>(int)$user->verified,
           'Admin'     => ($user->admin === 'true'),
-          'creationDate'=> $user->created_at,
+          'creationDate'=> (string)$user->created_at,
           'Deleted_at'  => isset($user->deleted_at) ? (string)$user->deleted_at : null
 
 
