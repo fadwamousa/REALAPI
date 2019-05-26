@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use App\Seller;
-
+use App\Http\Resources\Seller as SellerResource;
 class SellerController extends ApiController
 {
 
@@ -13,8 +13,11 @@ class SellerController extends ApiController
     {
 
         $sellers = Seller::has('products')->get();
+        return SellerResource::collection($sellers);
+
+
         //return response()->json(['data'=>$sellers],200);
-        return $this->showAll($sellers);
+        //return $this->showAll($sellers);
         //200 response HTTP mean everything is ok
 
     }

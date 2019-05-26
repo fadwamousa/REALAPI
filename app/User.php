@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use App\Transformers\UserTransformer;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,6 +16,8 @@ class User extends Authenticatable
     const REGULAR_USER = 'false';
 
     protected $table = "users";
+
+    public $transformer = UserTransformer::class;
 
 
     protected $fillable = [
