@@ -3,9 +3,10 @@
 namespace App\Traits;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
-
 
 trait ApiResponser{
 
@@ -33,20 +34,18 @@ trait ApiResponser{
     $collection  = $this->paginate($collection);
     $collection  = $this->transformData($collection , $transformer );
 
+    $collection  = $this->cacheResponse($collection);
+
     return $this->successResponse(['data'=>$collection],$code);
 
   }
 
-  protected  function showOne(Model $instance , $code = 200){
-
-
-
-      $transformer =  $instance->transformer;
-      $instance    = $this->transformData($instance , $transformer);
-
-      return $this->successResponse(['data'=>$model],$code);
-
-    }
+      protected function showOne(Model $instance, $code = 200)
+        {
+          $transformer = $instance->transformer;
+          $instance = $this->transformData($instance, $transformer);
+          return $this->successResponse($instance, $code);
+        }
 
     protected  function showMessage($message , $code = 200){
 
@@ -137,4 +136,22 @@ trait ApiResponser{
       		return $paginated;
   	  }*/
 
+
+      protected function cacheResponse($data)
+      	{
+
+          //this is function works after transform data to array
+          //so cacheResponse not receive collection
+          //it is receive a new data
+      		$url = request()->url();
+      		$queryParams = request()->query();
+      		ksort($queryParams); //k mean key
+      		$queryString = http_build_query($queryParams);
+          //Generates a URL-encoded query string from the associative
+          //(or indexed) array provided.
+      		$fullUrl = "{$url}?{$queryString}";
+      		return Cache::remember($fullUrl, 30/60, function() use($data) {
+      			return $data;
+      		});
+      	}
 }
