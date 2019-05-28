@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             'sign:X-Application-Name',
-            'throttle:60,1',
+            'throttle:10,1',
             'bindings',
         ],
     ];
@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'sign'     => \App\Http\Middleware\SignatorMiddleware::class,
+        'transform.input' => \App\Http\Middleware\TranformInput::class,
     ];
 }

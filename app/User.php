@@ -1,13 +1,14 @@
 <?php
 
 namespace App;
+use Laravel\Passport\HasApiTokens;
 use App\Transformers\UserTransformer;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
-    use Notifiable , SoftDeletes;
+    use Notifiable ,HasApiTokens, SoftDeletes;
 
     protected $dates    = ['deleted_at'];
     const VERIFIED_USER   = '1';

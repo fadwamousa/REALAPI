@@ -5,10 +5,19 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ApiController;
+use App\Transformers\UserTransformer;
 use App\Http\Resources\User as UserResource;
 use App\User;
 class UserController extends ApiController
 {
+
+    public function __construct(){
+
+      parent::__construct();
+
+      //$this->middleware('transform.input: ' . UserTransformer)->only(['store','update']);
+      //recieve new parameters that is name of Transformers
+    }
 
     public function index()
     {

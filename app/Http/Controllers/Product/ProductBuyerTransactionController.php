@@ -7,9 +7,17 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiController;
-
+use App\Transformers\TransactionTransformer;
 class ProductBuyerTransactionController extends ApiController
 {
+
+      public function __construct(){
+
+        parent::__construct();
+
+        //$this->middleware('transform.input: ' . TransactionTransformer)->only(['store']);
+        //recieve new parameters that is name of Transformers
+      }
 
 
     public function store(Request $request,Product $product , User $buyer)
@@ -45,7 +53,7 @@ class ProductBuyerTransactionController extends ApiController
           return $this->errorResponse('The quantity must be greater than the requset',409);
 
         }
-        
+
         return DB::transaction(function() use ($request,$product,$buyer){
           $product->quantity = $request->quantity;
           $product->save();

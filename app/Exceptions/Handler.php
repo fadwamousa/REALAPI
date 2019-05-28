@@ -90,6 +90,9 @@ class Handler extends ExceptionHandler
         }
         if ($exception instanceof TokenMismatchException) {
             return redirect()->back()->withInput($request->input());
+            //that mean the token sent is not the same one that provide in we
+            //The Token es only valid for the current session.
+            //If you copy that and use it for another one, it will fail.
         }
         if (config('app.debug')) {
             return parent::render($request, $exception);
@@ -133,5 +136,7 @@ class Handler extends ExceptionHandler
     private function isFrontend($request)
     {
         return $request->acceptsHtml() && collect($request->route()->middleware())->contains('web');
+        //mean the request come from web browser
+        //and the request contain the middleware
     }
 }

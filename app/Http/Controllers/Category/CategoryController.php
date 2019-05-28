@@ -5,8 +5,14 @@ namespace App\Http\Controllers\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use App\Category;
+use App\Transformers\CategoryTransformer;
 class CategoryController extends ApiController
 {
+
+  /*public function __construct(){
+
+  $this->middleware('transform.input:' . CategoryTransformer::class)->only(['store', 'update']);    //recieve new parameters that is name of Transformers
+}*/
 
     public function index()
     {

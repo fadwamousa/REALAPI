@@ -6,10 +6,20 @@ use App\Seller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\ApiController;
+use App\Transformers\ProductTransformer;
 use App\Product;
 use App\User;
 class SellerProductController extends ApiController
 {
+
+  public function __construct(){
+
+    parent::__construct();
+
+    //$this->middleware('transform.input: ' . ProductTransformer)->only(['store','update']);
+    //recieve new parameters that is name of Transformers
+  }
+
 
      public function index(Seller $seller)
      {

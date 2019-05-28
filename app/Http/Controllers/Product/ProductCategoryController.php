@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
-use App/Category;
+use App\Category;
 class ProductCategoryController extends ApiController
 {
 

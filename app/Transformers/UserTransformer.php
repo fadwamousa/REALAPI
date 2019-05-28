@@ -22,8 +22,13 @@ class UserTransformer extends TransformerAbstract
           'isVerified'=>(int)$user->verified,
           'Admin'     => ($user->admin === 'true'),
           'creationDate'=> (string)$user->created_at,
-          'Deleted_at'  => isset($user->deleted_at) ? (string)$user->deleted_at : null
-
+          'Deleted_at'  => isset($user->deleted_at) ? (string)$user->deleted_at : null,
+          'links' => [
+            [
+              'rel'  => 'self',
+              'href' => route('users.show',$user->id),
+            ],
+          ]
         ];
     }
 
