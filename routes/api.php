@@ -48,9 +48,11 @@ Route::resource('transaction','Transaction\TransactionController',['only'=>['ind
 Route::resource('transaction.categories','Transaction\TransactionCategoryController',['only'=>['index']]); //show me the index page
 Route::resource('transaction.sellers','Transaction\TransactionSellerContoller',['only'=>['index']]); //show me the index page
 
+
+//Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
 /*
 * user
 */
 Route::resource('users','User\UserController',['except'=>['create','edit']]);
 Route::get('users/verify/{token}','User\UserController@verify')->name('verify');
-Route::get('users/{user}/resend','User\UserController@resend')->name('resend'); 
+Route::get('users/{user}/resend','User\UserController@resend')->name('resend');

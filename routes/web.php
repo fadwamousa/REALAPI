@@ -40,4 +40,4 @@ Route::get('/',function(){
   return view('welcome');
 })->middleware('guest'); // only non valiadte can vists this is page
 
-Route::post('oauth/token',' \Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
+//Route::post('oauth/token',' \Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');

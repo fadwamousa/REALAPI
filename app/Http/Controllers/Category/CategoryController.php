@@ -9,10 +9,12 @@ use App\Transformers\CategoryTransformer;
 class CategoryController extends ApiController
 {
 
-  /*public function __construct(){
+public function __construct(){
+
+ $this->middleware('client.credentials')->only(['index', 'show']);    //recieve new parameters that is name of Transformers
 
   $this->middleware('transform.input:' . CategoryTransformer::class)->only(['store', 'update']);    //recieve new parameters that is name of Transformers
-}*/
+}
 
     public function index()
     {

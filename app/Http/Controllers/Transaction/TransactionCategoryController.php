@@ -9,6 +9,13 @@ use App\Http\Controllers\ApiController;
 class TransactionCategoryController extends ApiController
 {
 
+  public function __construct(){
+
+   $this->middleware('client.credentials')->only(['index']);    //recieve new parameters that is name of Transformers
+
+
+  }
+
 
     public function index(Transaction $transaction)
     {
@@ -17,12 +24,5 @@ class TransactionCategoryController extends ApiController
     }
 
 
-    /*public function index($id)
-    {
-        //
-        $transaction = Transaction::find($id);
-        $cat = $transaction->product->categories;
-        return $this->showAll($cat);
-
-    }*/
+  
 }

@@ -13,9 +13,8 @@ class UserController extends ApiController
 
     public function __construct(){
 
-      parent::__construct();
-
-      //$this->middleware('transform.input: ' . UserTransformer)->only(['store','update']);
+     $this->middleware('client.credentials')->only(['store','resend']);    //recieve new parameters that is name of Transformers
+     $this->middleware('transform.input: ' . UserTransformer::class)->only(['store','update']);
       //recieve new parameters that is name of Transformers
     }
 
